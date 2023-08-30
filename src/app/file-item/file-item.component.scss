@@ -1,0 +1,38 @@
+.file-item {
+  display: flex;
+  align-items: center;
+  border: 3px groove #cbd5e0;
+  float: left;
+  border-radius: 5px;
+  background-color: #ffffff;
+  padding: 1em 1em;
+  display: flex;
+  flex: 1;
+  top: 7px;
+  position: relative;
+  font-size: 1.2em;
+  min-width: 100%;
+}
+
+.file-icon {
+  margin-right: 1em;
+}
+
+.file-name {
+  flex: 1;
+  padding: 0em 2em;
+
+}
+
+.remove-btn {
+  margin-left: 1em;
+  cursor: pointer;
+
+  &:hover {
+      color: #cbd5e0;
+  }
+
+  &:active {
+      color: #000000;
+  }
+}

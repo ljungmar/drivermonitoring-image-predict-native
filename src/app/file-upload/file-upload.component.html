@@ -1,0 +1,33 @@
+<div>
+  <div class="file-card">
+    <div class="title">Upload a picture to be predicted</div>
+    <div class="file-input">
+      <input type="file" (change)="uploadHandler($event)" #fileInput style="display:none;" />
+      <label for="fileInput">
+        <button (click)="fileInput.click()">-Upload-</button>
+      </label>
+
+    </div>
+
+    <p class="main">Supported file to predict</p>
+    <p class="info">JPG, PNG</p>
+  </div>
+
+  <div class="loading-spinner" *ngIf="loading">
+    <div class="spinner"></div>
+    <p>Loading...</p>
+  </div>
+
+  <!--<app-file-item [file]="file"></app-file-item>
+  -->
+  <div *ngIf="!loading && uploadStatus === 'success' && prediction !== null">
+
+    <div class="result-card">
+      <div class="title-result">Result of predictions</div>
+      <p *ngIf="prediction === 'distracted' || prediction === 'focused'">Prediction: {{prediction}}</p>
+      <!--
+      <p>Accuracy: {{ accuracy | number: '1.2-2' }}</p>
+      <p>Loss: {{ loss | number: '1.2-2' }}</p>-->
+    </div>
+  </div>
+</div>

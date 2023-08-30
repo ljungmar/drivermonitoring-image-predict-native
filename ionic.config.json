@@ -1,0 +1,7 @@
+{
+  "name": "drivermonitoring_image_predict_native",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

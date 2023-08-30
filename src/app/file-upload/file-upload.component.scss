@@ -1,0 +1,151 @@
+.file-card {
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 3px groove #cbd5e0;
+  background-color: #ffffff;
+  min-width: 100%;
+  min-height: 80%;
+  border-radius: 16px;
+
+  .file-inputs {
+      position: relative;
+      margin-bottom: 1.5em;
+
+      input {
+          position: relative;
+          text-align: right;
+          opacity: 0;
+          z-index: 2;
+          cursor: pointer;
+          height: 46px;
+          max-width: 200px;
+      }
+
+
+      button {
+          position: absolute;
+          top: 0px;
+          left: 0px;
+          width: 100%;
+          height: 100%;
+          z-index: 1;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          color: #fff;
+          background-color: #6fba26;
+          font-size: 1.1rem;
+          cursor: pointer;
+          border-radius: 7px;
+          outline: none;
+          transition: background-color 0.4s;
+          box-shadow: inset 0px 1px 0px #b2f17f, 0px 6px 0px #3d6f0d;
+
+
+
+          i {
+              width: 1.5em;
+              height: 1.5em;
+              padding: 0.4em;
+              background-color: #fff;
+              color: #6fba26;
+              border-radius: 50%;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              margin-right: 0.8em;
+              font-size: 0.8em;
+          }
+      }
+
+      &:hover {
+          button {
+              background-color: #26ed1e;
+          }
+
+          i {
+              color: #25ec35;
+          }
+      }
+
+      &:active {
+          button {
+              padding-bottom: 9px;
+              padding-left: 10px;
+              padding-right: 10px;
+              padding-top: 11px;
+              top: 7px;
+              box-shadow: inset 0px 1px 0px #b2f17f, inset 0px -1px 0px #3d6f0d;
+              text-shadow: 0px 1px 1px rgba(255,255,255,0.3);
+              color: #156785;
+              background-color: #438a2a;
+          }
+
+          i {
+              color: #438a2a;
+              background-color: #156785;
+          }
+      }
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.loading-spinner {
+  display: inline-block;
+}
+.spinner {
+  border: 4px solid #f3f3f3; /* Set border properties */
+  border-top: 4px solid #3498db; /* Set top border color */
+  border-radius: 50%; /* Create a circular shape */
+  width: 20px; /* Set width of the spinner */
+  height: 20px; /* Set height of the spinner */
+  animation: spin 1s linear infinite; /* Apply the animation */
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+.title {
+  font-weight: bold;
+  font-size: large;
+  margin-bottom: 2em;
+}
+
+.main {
+  font-weight: bold;
+  font-style: italic;
+  margin-bottom: 0.4em;
+}
+
+.info {
+  font-size: 0.8rem;
+}
+
+
+.result-card {
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 3px groove #cbd5e0;
+  background-color: #ffffff;
+  min-width: 100%;
+  min-height: 80%;
+  border-radius: 16px;
+}
+
+.title-result {
+  font-weight: bold;
+  font-size: large;
+  margin-bottom: 2em;
+}
