@@ -13,9 +13,9 @@ var bufferSize = '256';
 var epochs = '10';
 var modelType = 'InceptionNet';
 var predictDir = 'PREDICT_DIRECTORY';
+var python = 'python'; // for Windows: python for Mac: python3
 
 var datasetType;
-var directoryPath;
 
 app.use(cors());
 
@@ -34,11 +34,6 @@ var storage = multer.diskStorage({
 
 var upload = multer({ storage: storage });
 var spawn = require('child_process').spawn;
-
-app.use(function(req, res, next) {
-  console.log('Incoming request:', req.method, req.url, req.body);
-  next();
-});
 
 app.post("/upload-file", upload.single('file'), async (req, res) => {
 
@@ -68,7 +63,7 @@ app.post("/upload-file", upload.single('file'), async (req, res) => {
 async function makePredictions(imagePath) {
   let prediction = null;
   return new Promise((resolve, reject) => {
-    console.log('Command:', 'python', [
+    console.log('Command:', python, [
       'experiment.py',
       '-p',
       imagePath, // Replace this with the actual path to the image file
@@ -85,7 +80,7 @@ async function makePredictions(imagePath) {
       '-m',
       modelType
     ]);
-    const pythonProcess = spawn('python', ['experiment.py', '-p', imagePath, '-d',
+    const pythonProcess = spawn(python, ['experiment.py', '-p', imagePath, '-d',
     predictDir,
     '-r',
     imageSize,
@@ -152,7 +147,7 @@ async function test() {
   datasetType = 'test';
 
   return new Promise((resolve, reject) => {
-    var pythonProcess = spawn('python', ['convert_data.py', '-o', predictDir, '-d', 'statefarm', '-r', imageSize, '-c', batchSize, '-s', datasetType]);
+    var pythonProcess = spawn(python, ['convert_data.py', '-o', predictDir, '-d', 'statefarm', '-r', imageSize, '-c', batchSize, '-s', datasetType]);
 
     pythonProcess.stdout.on('data', (data) => {
       console.log('test stdout: ' + data);
@@ -178,7 +173,7 @@ async function train() {
   datasetType = 'train';
 
   return new Promise((resolve, reject) => {
-    var pythonProcess = spawn('python', ['convert_data.py', '-o', predictDir, '-d', 'statefarm', '-r', imageSize, '-c', batchSize, '-s', datasetType]);
+    var pythonProcess = spawn(python, ['convert_data.py', '-o', predictDir, '-d', 'statefarm', '-r', imageSize, '-c', batchSize, '-s', datasetType]);
 
     pythonProcess.stdout.on('data', (data) => {
       console.log('train stdout: ' + data);

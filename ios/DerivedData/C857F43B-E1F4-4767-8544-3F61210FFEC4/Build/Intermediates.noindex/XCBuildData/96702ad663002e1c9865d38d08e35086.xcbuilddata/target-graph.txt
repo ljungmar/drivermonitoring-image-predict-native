@@ -1,0 +1,27 @@
+Target dependency graph (8 targets)
+CapacitorCordova in Pods, no dependencies
+Capacitor in Pods, depends on:
+CapacitorCordova in Pods (explicit)
+CapacitorApp in Pods, depends on:
+Capacitor in Pods (explicit)
+CapacitorHaptics in Pods, depends on:
+Capacitor in Pods (explicit)
+CapacitorKeyboard in Pods, depends on:
+Capacitor in Pods (explicit)
+CapacitorStatusBar in Pods, depends on:
+Capacitor in Pods (explicit)
+Pods-App in Pods, depends on:
+Capacitor in Pods (explicit)
+CapacitorApp in Pods (explicit)
+CapacitorCordova in Pods (explicit)
+CapacitorHaptics in Pods (explicit)
+CapacitorKeyboard in Pods (explicit)
+CapacitorStatusBar in Pods (explicit)
+App in App, depends on:
+Pods-App in Pods (implicit dependency via file 'Pods_App.framework' in build phase 'Link Binary')
+Capacitor in Pods (implicit dependency via options '-framework Capacitor' in build setting 'OTHER_LDFLAGS')
+CapacitorApp in Pods (implicit dependency via options '-framework CapacitorApp' in build setting 'OTHER_LDFLAGS')
+CapacitorHaptics in Pods (implicit dependency via options '-framework CapacitorHaptics' in build setting 'OTHER_LDFLAGS')
+CapacitorKeyboard in Pods (implicit dependency via options '-framework CapacitorKeyboard' in build setting 'OTHER_LDFLAGS')
+CapacitorStatusBar in Pods (implicit dependency via options '-framework CapacitorStatusBar' in build setting 'OTHER_LDFLAGS')
+CapacitorCordova in Pods (implicit dependency via options '-framework Cordova' in build setting 'OTHER_LDFLAGS')

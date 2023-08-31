@@ -5,7 +5,9 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class ApiService {
-  private baseUrl = 'http://192.168.32.14:8080';
+
+  private ipv4 = '192.168.32.14'; // enter your ipv4 inside the '' quotes
+  private baseUrl = 'http://' + this.ipv4 + ':8080';
 
   constructor(private http: HttpClient) { }
 
