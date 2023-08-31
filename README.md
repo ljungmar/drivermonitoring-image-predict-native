@@ -8,8 +8,5 @@ Drivermonitoring application to input a image to predict if it contains a distra
 4. Go into "drivermonitoring_image_predict_native/src/app/file-upload/api-service.component.ts" and input your ipv4 address
 5. Install all the necessary packages
 6. Open up another terminal from the root of the directory and call the command "npm install"
-7. Execute the app by calling:
-Windows: "ionic serve"
-Android: "npx cap run android -l --external"
-iOS: "npx cap run ios -l --external"
+7. Execute the app by calling: for Windows: "ionic serve", for Android: "npx cap run android -l --external", for iOS: "npx cap run ios -l --external"
 8. A new window will appear on your device presenting you the application
