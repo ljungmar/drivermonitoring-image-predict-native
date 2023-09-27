@@ -48,7 +48,7 @@ app.post("/upload-file", upload.single('file'), async (req, res) => {
     await test();
     await train();
     console.log("filepath: ", file.path);
-    const imagePath = file.path; // Replace 'uploaded_image.jpg' with the desired file name
+    const imagePath = file.path;
 
     const predictionResult = await makePredictions(imagePath);
 
@@ -66,7 +66,7 @@ async function makePredictions(imagePath) {
     console.log('Command:', python, [
       'experiment.py',
       '-p',
-      imagePath, // Replace this with the actual path to the image file
+      imagePath,
       '-d',
       predictDir,
       '-r',
@@ -99,7 +99,6 @@ async function makePredictions(imagePath) {
     pythonProcess.stdout.on('data', (chunk) => {
       output += chunk.toString();
       console.log("Received output chunk: ", chunk.toString());
-      // Convert the chunk to a string
       const chunkString = chunk.toString();
 
       // Check if the chunk contains the prediction information
