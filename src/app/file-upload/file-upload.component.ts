@@ -43,10 +43,6 @@ export class FileUploadComponent  implements OnInit {
 
         console.log("response from server: ", this.prediction);
         this.uploadStatus = 'success';
-        // Assuming predictionResult is already a JSON object in the response
-
-        //this.accuracy = res.predictionResult?.accuracy; // Check if the response field name is 'predictionResult' or adjust accordingly
-        //this.loss = res.predictionResult?.loss; // Check if the response field name is 'predictionResult' or adjust accordingly
         this.loading = false;
       },
       (err) => {
