@@ -28,6 +28,9 @@ import argparse
 
 from tensorflow.keras.preprocessing.image import load_img, img_to_array, smart_resize
 
+
+
+
 def load_and_preprocess_image(image_path, rows, cols):
     # Load the image using PIL
     img = Image.open(image_path)
@@ -242,27 +245,6 @@ def create_mobilenet_v2(rows, cols):
     model.compile(optimizer=tf.keras.optimizers.Adam(lr=0.0001), loss='binary_crossentropy', metrics=['accuracy'])
     return model
 
-def create_model(name, rows, cols):
-    nb_classes = 2  # Number of output classes (number of classes in your dataset)
-    
-    if 'inc' in name.lower():
-        return create_inception(rows, cols, nb_classes)  # Use InceptionV3 with 2 classes
-    if 'vgg2' in name.lower():
-        return create_vgg16_V2(rows, cols)  # Update the function parameters as needed
-    if 'vggft' in name.lower():
-        return create_vgg16_ft(rows, cols)  # Update the function parameters as needed
-    if 'vgg' in name.lower():
-        return create_vgg16(rows, cols)  # Update the function parameters as needed
-    if 'inc' in name.lower():
-        return create_inception(rows, cols)  # Update the function parameters as needed
-    if 'res' in name.lower():
-        return create_resnet(rows, cols)  # Update the function parameters as needed
-    if 'eff' in name.lower():
-        return create_efficientnet(rows, cols)  # Update the function parameters as needed
-    if 'mob' in name.lower():
-        return create_mobilenet_v2(rows, cols)  # Update the function parameters as needed
-    raise AttributeError('The model ' + str(name) + ' is not available. Choose from: VGG, inceptionNet, ResNet, EfficientNet, or MobileNetV2.')
-
 def training_with_dataaugmentation(file_train, model, nb_epoch, batch_size, rows, cols, train_datagen=None):
   
     if train_datagen is None:
@@ -319,6 +301,49 @@ def training_with_dataaugmentation(file_train, model, nb_epoch, batch_size, rows
                          callbacks=[cp_callback])
     return model, history
 
+def create_cnn(rows, cols):
+    """
+    Simple CNN architecture for your project
+    """
+    nb_classes = 2
+
+    model = Sequential()
+    model.add(Conv2D(32, (3, 3), activation='relu', input_shape=(rows, cols, 3)))
+    model.add(MaxPooling2D((2, 2)))
+    model.add(Conv2D(64, (3, 3), activation='relu'))
+    model.add(MaxPooling2D((2, 2)))
+    model.add(Conv2D(128, (3, 3), activation='relu'))
+    model.add(MaxPooling2D((2, 2)))
+    model.add(Flatten())
+    model.add(Dense(512, activation='relu'))
+    model.add(Dense(256, activation='relu'))
+    model.add(Dense(nb_classes, activation='softmax'))
+
+    return model
+
+def create_model(name, rows, cols):
+    nb_classes = 2
+    
+    if 'inc' in name.lower():
+        return create_inception(rows, cols, nb_classes)
+    elif 'vgg2' in name.lower():
+        return create_vgg16_V2(rows, cols)
+    elif 'vggft' in name.lower():
+        return create_vgg16_ft(rows, cols)
+    elif 'vgg' in name.lower():
+        return create_vgg16(rows, cols)
+    elif 'res' in name.lower():
+        return create_resnet(rows, cols)
+    elif 'eff' in name.lower():
+        return create_efficientnet(rows, cols)
+    elif 'mob' in name.lower():
+        return create_mobilenet_v2(rows, cols)
+    elif 'cnn' in name.lower():  # Add this line for the new CNN model
+        return create_cnn(rows, cols)
+    else:
+        raise AttributeError(f'The model {name} is not available. Choose from: VGG, InceptionNet, ResNet, EfficientNet, MobileNetV2, or CNN.')
+
+
 def main(image_path, datapath, modelname, rows, cols, batch_size, nb_epoch):
     hdf5_dir = Path(datapath)
     print('Reading the dataset')
@@ -363,8 +388,7 @@ if __name__ == '__main__':
     parser.add_argument("-c", "--cols", help="column size, default 256", type=int, default=256)
     parser.add_argument("-b", "--batch_size", help="batch size, default 64", type=int, default=64)
     parser.add_argument("-e", "--nb_epoch", help="number of epoch, default 10", type=int, default=10)
-    parser.add_argument("-m", "--model", help="model name, choose between vgg, inception, resnet or efficientnet, default vgg",
-                        choices=["VGG", "InceptionNet", "ResNet", "EfficientNet"], type=str, default='vgg')
+    parser.add_argument("-m", "--model", help="model name, choose between vgg, inception, resnet, efficientnet, cnn", choices=["vgg", "inception", "resnet", "efficientnet", "cnn"], type=str, default='vgg')
     args = parser.parse_args()
     print(args)
     print('trained models will be found in saved_models/')
@@ -376,3 +400,4 @@ if __name__ == '__main__':
 
 
 # python experiment.py -d ./OUTPUT_PATH -r 256 -c 256 -b 256 -e 10 -m VGG
+

@@ -11,7 +11,7 @@ var imageSize = '256';
 var batchSize = '256';
 var bufferSize = '256';
 var epochs = '10';
-var modelType = 'InceptionNet';
+var modelType = 'cnn';
 var predictDir = 'PREDICT_DIRECTORY';
 var python = 'python'; // for Windows: python for Mac: python3
 
@@ -91,7 +91,8 @@ async function makePredictions(imagePath) {
     '-e',
     epochs,
     '-m',
-    modelType]);
+    modelType
+    ]);
 
     let output = "";
     let errorOutput = "";
