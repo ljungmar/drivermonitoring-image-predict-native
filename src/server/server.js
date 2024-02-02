@@ -17,6 +17,12 @@ var python = 'python'; // for Windows: python for Mac: python3
 
 var datasetType;
 
+const corsoptions = {
+  origin: 'http://localhost:4200',
+  credentials: true,
+  optionSuccessStatus: 200
+}
+
 app.use(cors());
 
 var storage = multer.diskStorage({
@@ -45,8 +51,9 @@ app.post("/upload-file", upload.single('file'), async (req, res) => {
     const writeStreams = [];
     // Check if there are uploaded files in req.files array
     const file = req.file;
-    await test();
-    await train();
+    console.log(req.file.size);
+    // await test();
+    // await train();
     console.log("filepath: ", file.path);
     const imagePath = file.path;
 
@@ -205,7 +212,8 @@ app.use(function (err, req, res, next) {
   next();
 });
 
-app.listen(8080, () => {
+app.listen(8080, async () => {
+  try {
   // Get the network interfaces of the server
   const networkInterfaces = os.networkInterfaces();
 
@@ -222,8 +230,14 @@ app.listen(8080, () => {
       break;
     }
   }
-
   // Print out the IPv4 address
   console.log(`Server running on port 8080`);
   console.log(`IPv4 Address: ${ipAddress}`);
+  await test();
+  await train();
+  console.log("Initial test and training complete.");
+  } 
+  catch (error) {
+    console.log("Crash.");
+  }
 });
