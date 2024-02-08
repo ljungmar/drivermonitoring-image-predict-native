@@ -31,10 +31,13 @@ export class DesktopViewComponent  implements OnInit {
   }
   
   ngOnInit(): void {
-    // Call the function every 20 seconds (20000 milliseconds)
+    // Call the function every X milliseconds
+    const second = 1000;
+    const minute = second * 60;
+    const hour = minute * 60;
     setInterval(() => {
       this.getImage();
-    }, 10000);
+    }, second * 11); // Set time here
   }
 
   getImage() {

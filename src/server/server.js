@@ -233,9 +233,13 @@ app.listen(8080, async () => {
   // Print out the IPv4 address
   console.log(`Server running on port 8080`);
   console.log(`IPv4 Address: ${ipAddress}`);
+
+  let before = new Date().getTime();
   await test();
   await train();
-  console.log("Initial test and training complete.");
+  let after = new Date().getTime();
+  let minutes = ((after - before) / 1000) / 60;
+  console.log("Initial test and training completed in: " + minutes.toString() + " minutes.");
   } 
   catch (error) {
     console.log("Crash.");

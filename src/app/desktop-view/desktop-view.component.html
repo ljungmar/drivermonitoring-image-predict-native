@@ -36,7 +36,8 @@
 
     <div class="result-card">
       <div class="title-result">Predicting Image:</div>
-      <p *ngIf="prediction === 'distracted' || prediction === 'focused' || prediction === 'Awaiting prediction...'">{{prediction}}</p>
+      <p *ngIf="prediction === 'distracted' || prediction === 'focused'">{{prediction}}</p>
+      <p *ngIf="prediction === 'Awaiting prediction...'" class="loader"></p>
     </div>
   </div>
 </div>
