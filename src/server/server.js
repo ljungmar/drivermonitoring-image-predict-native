@@ -52,8 +52,8 @@ app.post("/upload-file", upload.single('file'), async (req, res) => {
     // Check if there are uploaded files in req.files array
     const file = req.file;
     console.log(req.file.size);
-    // await test();
-    // await train();
+    await test();
+    await train();
     console.log("filepath: ", file.path);
     const imagePath = file.path;
 
@@ -235,12 +235,12 @@ app.listen(8080, async () => {
   console.log(`IPv4 Address: ${ipAddress}`);
 
   let before = new Date().getTime();
-  await test();
-  await train();
+  //await test();
+  //await train();
   let after = new Date().getTime();
   let minutes = ((after - before) / 1000) / 60;
   console.log("Initial test and training completed in: " + minutes.toString() + " minutes.");
-  } 
+  }
   catch (error) {
     console.log("Crash.");
   }
