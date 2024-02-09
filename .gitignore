@@ -12,6 +12,10 @@ $RECYCLE.BIN/
 *.log
 log.txt
 
+# Sensitive data
+.env
+/src/app/api-calls/api-service-conf.ts
+
 
 /.sourcemaps
 /.versions
@@ -26,6 +30,10 @@ log.txt
 # Compiled output
 /dist
 /tmp
+/src/server/PREDICT_DIRECTORY
+/src/server/statefarm
+/src/server/uploads
+/src/server/saved_models
 /out-tsc
 /bazel-out
 

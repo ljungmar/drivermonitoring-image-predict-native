@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from './api-service.component';
+import { ApiService } from '../api-calls/api-service.component';
 
 
 @Component({
