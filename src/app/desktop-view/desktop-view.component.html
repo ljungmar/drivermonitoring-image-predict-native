@@ -1,0 +1,43 @@
+<!-- Mobile Devices -->
+<div *ngIf="isWidthLessThanHeight" class="grid-container-m">
+  
+  <div *ngIf="receivedData" class="grid-item" width="400" height="300">
+    <p>Received Image:</p>
+    <img class="imageContainer" #capturedImage [src]="receivedData" width="400" height="300">
+  </div>
+
+  <div *ngIf="!receivedData" class="grid-item" width="400" height="300">
+    <p>Waiting for Image...</p>
+  </div>
+
+  <div class="grid-item">
+
+    <div class="result-card">
+      <div class="title-result" style="padding-bottom: 2rem;">Predicting Image:</div>
+      <p *ngIf="prediction === 'distracted' || prediction === 'focused'">{{prediction}}</p>
+      <p *ngIf="prediction === 'Awaiting prediction...'" class="loader"></p>
+    </div>
+  </div>
+</div>
+
+<!-- Desktop or Tablet Devices -->
+<div *ngIf="!isWidthLessThanHeight" class="grid-container-dt">
+  
+  <div *ngIf="receivedData" class="grid-item" width="400" height="300">
+    <p>Received Image:</p>
+    <img class="imageContainer" #capturedImage [src]="receivedData" width="400" height="300">
+  </div>
+
+  <div *ngIf="!receivedData" class="grid-item" width="400" height="300">
+    <p>Waiting for Image...</p>
+  </div>
+
+  <div class="grid-item">
+
+    <div class="result-card">
+      <div class="title-result">Predicting Image:</div>
+      <p *ngIf="prediction === 'distracted' || prediction === 'focused'">{{prediction}}</p>
+      <p *ngIf="prediction === 'Awaiting prediction...'" class="loader"></p>
+    </div>
+  </div>
+</div>

@@ -9,7 +9,9 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "server": "cd src/server/ & node server.js",
+    "ds": "start cmd /k \"npm start\" & start cmd /k \"npm run server\""
   },
   "private": true,
   "dependencies": {

@@ -6,7 +6,9 @@ import { HomePage } from './home.page';
 
 import { HomePageRoutingModule } from './home-routing.module';
 import { FileUploadComponent } from '../file-upload/file-upload.component';
+import { FileCamUploadComponent } from '../file-cam-upload/file-cam-upload.component';
 import { FileItemComponent } from '../file-item/file-item.component';
+import { DesktopViewComponent } from '../desktop-view/desktop-view.component';
 
 
 @NgModule({
@@ -16,6 +18,6 @@ import { FileItemComponent } from '../file-item/file-item.component';
     IonicModule,
     HomePageRoutingModule
   ],
-  declarations: [HomePage, FileUploadComponent, FileItemComponent]
+  declarations: [HomePage, FileUploadComponent, FileItemComponent, FileCamUploadComponent, DesktopViewComponent]
 })
 export class HomePageModule {}

@@ -1,0 +1,25 @@
+<div class="grid-container">
+  <div class="grid-item">
+    <p>Live Feed:</p>
+    <video class="imageContainer" #videoPlayer width="400" height="300" autoplay></video>
+    <button (click)="captureImage()" class="button-85" role="button">Capture Image</button>
+  </div>
+  
+  <div *ngIf="captureData" class="grid-item" width="400" height="300">
+    <p>Captured Image:</p>
+    <img class="imageContainer" #capturedImage [src]="captureData" width="400" height="300">
+    <button (click)="uploadImage()" class="button-85" role="button">Upload Image</button>
+  </div>
+
+  <div *ngIf="!captureData" class="grid-item" width="400" height="300">
+    <p>Waiting for Image...</p>
+  </div>
+
+  <div class="grid-item">
+
+    <div class="result-card">
+      <div class="title-result">Result of prediction:</div>
+      <p *ngIf="prediction === 'distracted' || prediction === 'focused' || prediction === 'Awaiting prediction...'">{{prediction}}</p>
+    </div>
+  </div>
+</div>
