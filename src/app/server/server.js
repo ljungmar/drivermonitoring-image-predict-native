@@ -7,9 +7,9 @@ var path = require('path');
 
 var os = require('os');
 
-var imageSize = '256';
-var batchSize = '256';
-var bufferSize = '256';
+var imageSize = '64';
+var batchSize = '64';
+var bufferSize = '64';
 var epochs = '10';
 var modelType = 'cnn';
 var predictDir = 'PREDICT_DIRECTORY';
