@@ -34,7 +34,7 @@ var storage = multer.diskStorage({
     cb(null, uploadFolderPath); // Set the destination folder for uploaded files
   },
   filename: function (req, file, cb) {
-    cb(null, Date.now() + '-' + file.originalname); // Set the filename with a timestamp
+    cb(null, file.originalname); // Set the filename with a timestamp
   }
 });
 
