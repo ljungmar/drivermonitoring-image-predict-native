@@ -66,7 +66,6 @@ export class FileCamUploadComponent implements OnInit {
 
   uploadImage(): void {
     if (this.selectedFile) {
-      this.prediction = "Awaiting prediction..."
       const formData: FormData = new FormData();
       formData.append('file', this.selectedFile, 'webcam_snapshot.jpg');
 
@@ -74,7 +73,7 @@ export class FileCamUploadComponent implements OnInit {
         (res: any) => {
           this.file = res.file; // Check if the response field name is 'file' or adjust accordingly
           this.prediction = res.prediction;
-  
+          console.log(res.prediction);
           console.log("response from server: ", this.prediction);
           this.uploadStatus = 'success';
           this.loading = false;

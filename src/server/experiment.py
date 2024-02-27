@@ -1,3 +1,4 @@
+import traceback
 from convert_data import paths_train, labels_test
 from tensorflow.keras.applications.vgg16 import preprocess_input
 from tensorflow.keras import backend
@@ -233,7 +234,12 @@ def main(image_path, datapath, modelname, rows, cols, batch_size, nb_epoch):
 
     # Call the training function
     trained_model, history = training_with_dataaugmentation(images_train, labels_train, model, nb_epoch, batch_size, rows, cols)
-
+    
+    try:
+        trained_model.save('./saved_models/trained_model_64x64.h5')
+    except Exception as e:
+        print("Something somewhere. Went Wrong:")
+        print(traceback.format.exec())
     # Evaluate the model on the test set
     # ds_test = tf.data.Dataset.from_generator(
     #     lambda: batch_image_generator(images_test, labels_test, batch_size),
