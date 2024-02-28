@@ -23,7 +23,7 @@ def load_image(path, rows=256, cols=256):
     img = cv2.resize(img, (rows, cols))
     return img
 
-def load_data(datapath, subset='train', rows=256, cols=256, test_size=0.2, random_state=42):
+def load_data(datapath, subset='train', rows=256, cols=256, test_size=0.25, random_state=42):
     focused_paths = glob.glob(os.path.join(datapath, subset, "c0", "*.jpg"))
     distracted_paths = (
         glob.glob(os.path.join(datapath, subset, "c1", "*.jpg"))
@@ -39,6 +39,14 @@ def load_data(datapath, subset='train', rows=256, cols=256, test_size=0.2, rando
 
      # Use train_test_split to split the data into training and testing sets
     paths_train, paths_test, labels_train, labels_test = train_test_split(paths, labels, test_size=test_size, random_state=random_state)
+    paths_train = paths_train * 2
+    labels_train = labels_train * 2
+
+    paths_test = paths_test * 2
+    labels_test = labels_test * 2
+
+    print("Number of labels in train set:", len(labels_train))
+    print("Number of labels in test set:", len(labels_test))
 
     if subset == 'train':
         paths = paths_train
