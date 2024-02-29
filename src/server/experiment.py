@@ -122,7 +122,7 @@ def batch_image_generator(images, labels, batch_size, rows, cols, data_augmentat
                     x_augmented, y_augmented = next(generator)
 
                     # Check the shape of y_augmented
-                    print("THEEEEEEEEEEEEEEEEEEEEEEEEE SHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPE:", y_augmented.shape)
+                    print("y_augmented.shape:", y_augmented.shape)
 
                     # Check the dimensionality of y_augmented
                     if len(y_augmented.shape) == 1:
@@ -205,9 +205,6 @@ def training_with_dataaugmentation(images_train, labels_train, images_test, labe
         output_shapes=([batch_size, rows, cols, 3], [batch_size, 2])
     )
 
-    print("images_test sizeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee:", images_test.size)
-    print("y_test: ", y_test.size)
-
     ds_test = tf.data.Dataset.from_generator(
         lambda: batch_image_generator(images_test, y_test, batch_size, rows, cols, data_augmentation=test_datagen),
         output_types=(tf.float32, tf.float32),
@@ -222,7 +219,7 @@ def training_with_dataaugmentation(images_train, labels_train, images_test, labe
     nb_validation_samples = len(labels_val)
     nb_test_samples = len(labels_test)
     print("nb_train_sample:", nb_train_samples)
-    print("nb_test_sample heeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeere:", nb_test_samples)
+    print("nb_test_sample:", nb_test_samples)
 
     log_dir = "/content/drive/MyDrive/logs/fit_ft/" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
     checkpoint_path = "/content/drive/MyDrive/logs/cpft-{epoch:04d}.ckpt"
