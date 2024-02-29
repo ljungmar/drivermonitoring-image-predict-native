@@ -37,7 +37,7 @@ export class DesktopViewComponent  implements OnInit {
     const hour = minute * 60;
     setInterval(() => {
       this.getImage();
-    }, second * 11); // Set time here
+    }, second * 5); // Set time here
   }
 
   getImage() {
@@ -72,7 +72,6 @@ export class DesktopViewComponent  implements OnInit {
 
   uploadImage(): void {
     if (this.selectedFile) {
-      this.prediction = "Awaiting prediction..."
       const formData: FormData = new FormData();
       formData.append('file', this.selectedFile, 'webcam_snapshot.jpg');
 

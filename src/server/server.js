@@ -17,12 +17,6 @@ var python = 'python'; // for Windows: python for Mac: python3
 
 var datasetType;
 
-const corsoptions = {
-  origin: 'http://localhost:4200',
-  credentials: true,
-  optionSuccessStatus: 200
-}
-
 app.use(cors());
 
 var storage = multer.diskStorage({
@@ -45,27 +39,56 @@ app.post("/upload-file", upload.single('file'), async (req, res) => {
 
   try {
     console.log("request body: ", __dirname);
-    let accuracy = null;
-    let loss = null;
-    let prediction = null;
-    const writeStreams = [];
     // Check if there are uploaded files in req.files array
     const file = req.file;
     console.log(req.file.size);
-    await test();
-    await train();
     console.log("filepath: ", file.path);
     const imagePath = file.path;
+    const predictionResult = await singularPrediction(imagePath);
 
-    const predictionResult = await makePredictions(imagePath);
-
-    console.log("Prediction result is: ", predictionResult);
+    console.log("Prediction result is: " + predictionResult);
     return res.status(200).json({ prediction: predictionResult, file });
 } catch (error) {
     console.error(`Error: ${error}`);
     return res.status(500).send("Server error");
   }
 });
+
+async function singularPrediction(imagePath) {
+  return new Promise((resolve, reject) => {
+    var pythonProcess = spawn(python, ['./modelPredictor.py', '-p', imagePath]);
+    let prediction = "";
+    
+    pythonProcess.stdout.on('data', (data) => {
+      prediction = String.fromCharCode(...data).replace(/["{}\n\t\s:]/g, '');
+    });
+
+    pythonProcess.on('close', (code) => {
+      if (code === 0) {
+        console.log("Driver is " + prediction);
+        resolve(prediction);
+      } else {
+        reject('predict process exited with non-zero exit code ' + code);
+      }
+    });
+  });
+}
+
+async function ifModelExists() {
+  let model = "./saved_models/trained_model_64x64.h5";
+  let before = new Date().getTime();
+  
+  if (!fs.existsSync(model)) {
+    console.log("No Model is pre-existing, creating a new model.");
+    await test();
+    await train();
+    await makePredictions('./uploads/in-car-focused-001.jpg');
+    let after = new Date().getTime();
+    let minutes = ((after - before) / 1000) / 60;
+    console.log("Initial test, training, and validation completed in: " + minutes.toString() + " minutes.");
+  }
+  console.log("Model already exists, using the premade model.");
+};
 
 async function makePredictions(imagePath) {
   let prediction = null;
@@ -87,7 +110,11 @@ async function makePredictions(imagePath) {
       '-m',
       modelType
     ]);
-    const pythonProcess = spawn(python, ['experiment.py', '-p', imagePath, '-d',
+    const pythonProcess = spawn(python, [
+    'experiment.py', 
+    '-p', 
+    imagePath, 
+    '-d',
     predictDir,
     '-r',
     imageSize,
@@ -147,8 +174,6 @@ async function makePredictions(imagePath) {
     });
   });
 }
-
-
 
 async function test() {
   datasetType = 'test';
@@ -234,12 +259,7 @@ app.listen(8080, async () => {
   console.log(`Server running on port 8080`);
   console.log(`IPv4 Address: ${ipAddress}`);
 
-  let before = new Date().getTime();
-  //await test();
-  //await train();
-  let after = new Date().getTime();
-  let minutes = ((after - before) / 1000) / 60;
-  console.log("Initial test and training completed in: " + minutes.toString() + " minutes.");
+  await ifModelExists();
   }
   catch (error) {
     console.log("Crash.");

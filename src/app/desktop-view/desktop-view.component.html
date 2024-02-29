@@ -15,7 +15,6 @@
     <div class="result-card">
       <div class="title-result" style="padding-bottom: 2rem;">Predicting Image:</div>
       <p *ngIf="prediction === 'distracted' || prediction === 'focused'">{{prediction}}</p>
-      <p *ngIf="prediction === 'Awaiting prediction...'" class="loader"></p>
     </div>
   </div>
 </div>
@@ -35,9 +34,8 @@
   <div class="grid-item">
 
     <div class="result-card">
-      <div class="title-result">Predicting Image:</div>
+      <div class="title-result">Prediction:</div>
       <p *ngIf="prediction === 'distracted' || prediction === 'focused'">{{prediction}}</p>
-      <p *ngIf="prediction === 'Awaiting prediction...'" class="loader"></p>
     </div>
   </div>
 </div>

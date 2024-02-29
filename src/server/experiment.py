@@ -1,3 +1,4 @@
+import traceback
 from convert_data import paths_train, labels_test
 from tensorflow.keras.applications.vgg16 import preprocess_input
 from tensorflow.keras import backend
@@ -405,6 +406,12 @@ def main(image_path, datapath, modelname, rows, cols, batch_size, nb_epoch):
         cols,
     )
     trained_model.add(Dropout(0.5))
+
+    try:
+        trained_model.save('./saved_models/trained_model_64x64.h5')
+    except Exception as e:
+        print("Something somewhere. Went Wrong:")
+        print(traceback.format.exec())
 
     # Load the input image and preprocess it
     input_image = load_and_preprocess_image(
