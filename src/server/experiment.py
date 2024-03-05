@@ -11,7 +11,6 @@ import numpy as np
 import argparse
 import tensorflow as tf
 import datetime
-from sklearn.model_selection import train_test_split
 from tensorflow.keras.utils import to_categorical
 from keras.layers import Dropout
 from keras.preprocessing.image import ImageDataGenerator
@@ -48,7 +47,7 @@ def load_and_preprocess_image(image, output_path, rows, cols, min_size=75):
         img = img.resize((max(min_size, rows), max(min_size, cols)))
 
         # Crop the image to the specified size if necessary
-        img = img.crop((0, 0, rows, cols))
+        img = img.crop((0, 0, cols, rows))  # Switched rows and cols here
 
         # Save the preprocessed image
         img.save(output_path)
@@ -86,10 +85,11 @@ def read_hdf5(hdf5_dir=Path("./"), subset="train", rows=256, cols=256):
     """
     images, labels = [], []
     # Open the HDF5 file
-    file = h5py.File(hdf5_dir / f"driver_distraction_{rows}x{cols}_{subset}.h5", "r+")
+    file = h5py.File(hdf5_dir / f"driver_distraction_{cols}x{rows}_{subset}.h5", "r+")  # Switched cols and rows here
 
     if "images" in file and "meta" in file:
         images = np.array(file["images"]).astype(float)
+        print("Image dimensions:", images.shape)
         labels = np.array(file["meta"]).astype(int)
 
     return images, labels
@@ -321,11 +321,10 @@ def training_with_dataaugmentation(
 
     return model, history
 
-
-def create_cnn(rows, cols):
+def create_cnn():
 
     model = Sequential()
-    model.add(Conv2D(32, (3, 3), activation="relu", input_shape=(rows, cols, 3)))
+    model.add(Conv2D(32, (3, 3), activation="relu", input_shape=(64, 64, 3))) # image width and height
     model.add(BatchNormalization())
     model.add(MaxPooling2D((2, 2)))
     model.add(Conv2D(64, (3, 3), activation="relu"))
@@ -346,10 +345,10 @@ def create_cnn(rows, cols):
     return model
 
 
-def create_model(name, rows, cols):
+def create_model(name):
 
     if "cnn" in name.lower():  # Add this line for the new CNN model
-        return create_cnn(rows, cols)
+        return create_cnn()
     else:
         raise AttributeError(
             f"The model {name} is not available. Only CNN is available."
@@ -368,7 +367,7 @@ def main(image_path, datapath, modelname, rows, cols, batch_size, nb_epoch):
     print("Labels train shape:", labels_train.shape)
     print("Labels test shape:", labels_test.shape)
 
-    model = create_model(modelname, rows, cols)
+    model = create_model(modelname)
     print("model created")
     model.summary()
     print("summary completed")
@@ -407,12 +406,12 @@ def main(image_path, datapath, modelname, rows, cols, batch_size, nb_epoch):
     )
     trained_model.add(Dropout(0.5))
 
-    try:
+    """ try:
         trained_model.save('./saved_models/trained_model_64x64.h5')
     except Exception as e:
         print("Something somewhere. Went Wrong:")
         print(traceback.format.exec())
-
+ """
     # Load the input image and preprocess it
     input_image = load_and_preprocess_image(
         args.image_path, "output_image.jpg", args.rows, args.cols
